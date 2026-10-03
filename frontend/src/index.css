@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    box-sizing: border-box;
+  }
+
+  html {
+    @apply scroll-smooth;
+    scroll-padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  body {
+    @apply bg-cream-100 text-berry-600 font-sans antialiased;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display text-berry-500;
+    font-weight: 600;
+  }
+
+  /* Visible keyboard focus everywhere — never remove outlines outright. */
+  :focus-visible {
+    outline: 2px solid theme("colors.rose.500");
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: theme("colors.rose.200");
+    color: theme("colors.berry.700");
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* --- Buttons --- */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-rose-500 px-6 py-3
+      text-sm font-semibold text-white shadow-soft transition-all duration-200 ease-soft-out
+      hover:bg-rose-600 hover:shadow-card active:scale-[0.98]
+      disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-rose-500 disabled:hover:shadow-soft;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-berry-500/20
+      bg-white px-6 py-3 text-sm font-semibold text-berry-500 transition-all duration-200 ease-soft-out
+      hover:border-rose-400 hover:bg-blush-50 active:scale-[0.98]
+      disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5
+      text-sm font-medium text-mauve-500 transition-colors duration-200
+      hover:bg-blush-100 hover:text-berry-500;
+  }
+  .btn-icon {
+    @apply flex h-10 w-10 items-center justify-center rounded-full text-berry-500
+      transition-colors duration-200 hover:bg-blush-100 active:scale-95;
+  }
+
+  /* --- Forms --- */
+  .input-field {
+    @apply w-full rounded-2xl border border-berry-500/10 bg-white px-4 py-3 text-[15px] text-berry-600
+      placeholder:text-mauve-400 shadow-none transition-all duration-150
+      focus:border-rose-400 focus:outline-none focus:ring-4 focus:ring-rose-100;
+  }
+  .input-field:disabled {
+    @apply cursor-not-allowed bg-cream-200 text-mauve-400;
+  }
+  .field-label {
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-mauve-500;
+  }
+  .field-error {
+    @apply mt-1.5 text-xs font-medium text-rose-700;
+  }
+
+  /* --- Admin-friendly form text: plain sentence-case labels + helper text --- */
+  .form-label {
+    @apply mb-1 block text-sm font-semibold text-berry-600;
+  }
+  .form-hint {
+    @apply mb-2 text-xs leading-relaxed text-mauve-500;
+  }
+
+  /* --- Surfaces --- */
+  .card {
+    @apply rounded-xl3 bg-white shadow-card;
+  }
+  .card-flat {
+    @apply rounded-xl3 border border-berry-500/10 bg-white;
+  }
+
+  /* --- Feedback states --- */
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium;
+  }
+
+  /* --- Mobile safe-area helpers (native-app feel) --- */
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* --- Touch targets: primary interactive controls never shrink below
+     44px, per the brief's mobile-app usability requirement. --- */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Hide default scrollbar for horizontally-scrolling chip/date rows
+     while keeping them scrollable — a native-app detail. */
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
