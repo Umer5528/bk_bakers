@@ -73,21 +73,33 @@ app.use("/api/v1/dashboard", dashboardRoutes);
 app.use("/api/v1/audit-logs", auditLogRoutes);
 
 // --- 404 + error handling (must be last) ---
-app.get("/api/v1/cloudinary-test", async (req, res) => {
+app.get("/api/v1/cloudinary-upload-test", async (req, res) => {
   try {
-    const result = await cloudinary.api.ping();
+    const result = await cloudinary.uploader.upload(
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=",
+      {
+        folder: "bk-bakers/test",
+        resource_type: "image",
+      },
+    );
 
     res.status(200).json({
       success: true,
-      message: "Cloudinary authentication works",
-      result,
+      message: "Cloudinary image upload works",
+      url: result.secure_url,
+      public_id: result.public_id,
     });
   } catch (error) {
-    console.error("CLOUDINARY PING ERROR:", error);
+    console.error("CLOUDINARY DIRECT UPLOAD TEST ERROR:", {
+      message: error?.message,
+      http_code: error?.http_code,
+      name: error?.name,
+      error,
+    });
 
     res.status(500).json({
       success: false,
-      message: error?.message || "Cloudinary ping failed",
+      message: error?.message || "Cloudinary upload test failed",
       http_code: error?.http_code || null,
       name: error?.name || null,
     });
