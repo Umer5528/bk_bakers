@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser";
 import helmet from "helmet";
 import morgan from "morgan";
 import mongoSanitize from "express-mongo-sanitize";
-
+import cloudinary from "./config/cloudinary.js";
 import authRoutes from "./routes/authRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
@@ -37,7 +37,7 @@ app.use(
   cors({
     origin: process.env.CLIENT_URL || "http://localhost:5173",
     credentials: true,
-  })
+  }),
 );
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
@@ -75,5 +75,24 @@ app.use("/api/v1/audit-logs", auditLogRoutes);
 // --- 404 + error handling (must be last) ---
 app.use(notFound);
 app.use(errorHandler);
+app.get("/api/v1/cloudinary-test", async (req, res) => {
+  try {
+    const result = await cloudinary.api.ping();
 
+    res.status(200).json({
+      success: true,
+      message: "Cloudinary authentication works",
+      result,
+    });
+  } catch (error) {
+    console.error("CLOUDINARY PING ERROR:", error);
+
+    res.status(500).json({
+      success: false,
+      message: error?.message || "Cloudinary ping failed",
+      http_code: error?.http_code || null,
+      name: error?.name || null,
+    });
+  }
+});
 export default app;
