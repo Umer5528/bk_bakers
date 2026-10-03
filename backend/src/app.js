@@ -73,6 +73,26 @@ app.use("/api/v1/dashboard", dashboardRoutes);
 app.use("/api/v1/audit-logs", auditLogRoutes);
 
 // --- 404 + error handling (must be last) ---
+app.get("/api/v1/cloudinary-test", async (req, res) => {
+  try {
+    const result = await cloudinary.api.ping();
+
+    res.status(200).json({
+      success: true,
+      message: "Cloudinary authentication works",
+      result,
+    });
+  } catch (error) {
+    console.error("CLOUDINARY PING ERROR:", error);
+
+    res.status(500).json({
+      success: false,
+      message: error?.message || "Cloudinary ping failed",
+      http_code: error?.http_code || null,
+      name: error?.name || null,
+    });
+  }
+});
 app.use(notFound);
 app.use(errorHandler);
 app.get("/api/v1/cloudinary-test", async (req, res) => {
