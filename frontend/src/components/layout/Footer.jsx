@@ -53,7 +53,7 @@ const Footer = () => {
             <h4 className="mb-4 text-sm font-semibold text-berry-500">Shop</h4>
             <ul className="space-y-2.5 text-sm text-mauve-500">
               <li><Link to="/shop" className="hover:text-rose-600">All Products</Link></li>
-              <li><Link to="/custom-cake" className="hover:text-rose-600">Custom Cakes</Link></li>
+              <li><Link to="/custom-cake" className="hover:text-rose-600">Custom Order on WhatsApp</Link></li>
               <li><Link to="/my-orders" className="hover:text-rose-600">Track an Order</Link></li>
             </ul>
           </div>

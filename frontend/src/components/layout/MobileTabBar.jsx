@@ -9,7 +9,7 @@ import { useAuth } from "../../context/AuthContext";
 const tabs = [
   { label: "Home", to: "/", icon: Home, end: true },
   { label: "Shop", to: "/shop", icon: LayoutGrid },
-  { label: "Custom", to: "/custom-cake", icon: Sparkles },
+  { label: "Custom Order", to: "/custom-cake", icon: Sparkles },
   { label: "Orders", to: "/my-orders", icon: Receipt },
 ];
 

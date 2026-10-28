@@ -7,7 +7,7 @@ import BrandLogo from "../common/BrandLogo";
 const navLinks = [
   { label: "Home", to: "/" },
   { label: "Shop", to: "/shop" },
-  { label: "Custom Cakes", to: "/custom-cake" },
+  { label: "Custom Order", to: "/custom-cake" },
   { label: "My Orders", to: "/my-orders" },
 ];
 
